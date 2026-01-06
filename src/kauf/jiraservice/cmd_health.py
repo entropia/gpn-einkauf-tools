@@ -2,8 +2,11 @@ import typer
 import keyring
 from typing_extensions import Annotated
 
-from .format import msg_error
-from .secrets import KAUF_KEYRING_SERVICENAME
+from kauf.format.success import msg_success
+from .service import JIRAService
+
+from ..format import msg_error
+from ..secrets import KAUF_KEYRING_SERVICENAME
 
 jira_app = typer.Typer()
 
@@ -17,4 +20,9 @@ def health(
     token = keyring.get_password(KAUF_KEYRING_SERVICENAME, "jira_token")
     if not token:
         msg_error("Missing JIRA token.", command_alt="kauf secrets set jira_token XXX")
-    pass
+
+    j = JIRAService(token, jira_url)
+    if len(j.get_projects()) == 0:
+        msg_error("No access to any JIRA project")
+
+    msg_success("Token is working and having access to at least 1 project.")

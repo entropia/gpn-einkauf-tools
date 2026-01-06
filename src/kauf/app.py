@@ -2,7 +2,7 @@ import typer
 
 from .callback import callback
 
-from .jira import jira_app
+from .jiraservice.cmd_health import jira_app
 from .secrets import secrets_app
 
 app = typer.Typer(callback=callback)
