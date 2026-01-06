@@ -2,11 +2,9 @@ import keyring
 import typer
 from typing import Annotated
 
-from .jira import callback
-
 KAUF_KEYRING_SERVICENAME = "KAUF"
 
-secrets_app = typer.Typer(callback=callback)
+secrets_app = typer.Typer()
 
 
 @secrets_app.command("set")
