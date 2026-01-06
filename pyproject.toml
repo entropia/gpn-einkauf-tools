@@ -1,0 +1,11 @@
+[project]
+name = "kauf"
+version = "0.0.1"
+dependencies = [
+  "typer>=0.21.1",
+  "keyring>=25.7.0",
+  "rich>=14.2.0",
+  "jira>=3.10.5",
+]
+[project.scripts]
+kauf = "kauf.app:app"
