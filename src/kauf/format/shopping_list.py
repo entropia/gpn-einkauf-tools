@@ -9,7 +9,9 @@ class ShoppingList:
         issue_key: str
         item_url: str | None = None
 
-        def __init__(self, name: str, shop: str, issue_key: str, url: str | None = None):
+        def __init__(
+            self, name: str, shop: str, issue_key: str, url: str | None = None
+        ):
             self.name = name
             self.item_url = url
             self.issue_key = issue_key
@@ -42,7 +44,11 @@ class ShoppingList:
                     url = url_group.group("url")
                     item = item.replace(url, "")
 
-                self.items.append(ShoppingList.Item(item, str(issue.fields.customfield_11907), issue.key, url=url))
+                self.items.append(
+                    ShoppingList.Item(
+                        item, str(issue.fields.customfield_11907), issue.key, url=url
+                    )
+                )
 
     def as_markdown(self):
         itemsPerShop = {}
