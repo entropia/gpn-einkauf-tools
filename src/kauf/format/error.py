@@ -7,7 +7,7 @@ def msg_error(msg: str, command_alt: str = None):
     formatted_msg = f"[bold red]{msg}[/bold red]"
     if command_alt:
         formatted_msg += (
-            "\n[bright_black]Try: [italic]{command_alt}[/bright_black][/italic]"
+            f"\n[bright_black]Try: [italic]{command_alt}[/bright_black][/italic]"
         )
     print(
         Panel.fit(

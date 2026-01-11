@@ -35,6 +35,8 @@ def list(
     if not tag:
         msg_error("Missing tag.")
 
+    sid_cookie = keyring.get_password(KAUF_KEYRING_SERVICENAME, "hedgedoc_sid")
+
     j = JIRAService(token, jira_url)
     issues = j.search_issues("EINKAUF", [tag], status_exclude=status_exclude, keys=keys)
 
@@ -43,7 +45,7 @@ def list(
 
     log_debug(f"{len(issues)} issues selected")
 
-    h = HedgeDocService(hedgedoc_url)
+    h = HedgeDocService(hedgedoc_url, sid_cookie=sid_cookie)
     shopping_list = ShoppingList(issues, jira_url)
 
     if len(hedgedoc_url) > 0:
