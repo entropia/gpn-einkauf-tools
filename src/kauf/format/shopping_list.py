@@ -29,7 +29,7 @@ class ShoppingList:
 
     def _get_items(self):
         for issue in self.issues:
-            issue_items = issue.fields.customfield_11004.splitlines()
+            issue_items = issue.description.splitlines()
 
             for item in issue_items:
                 if len(item) <= 2:
