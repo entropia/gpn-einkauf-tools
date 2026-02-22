@@ -1,5 +1,6 @@
-from jira import JIRA
+from jira import JIRA, Issue
 
+from kauf.format import msg_error
 from kauf.format.log import log_debug
 
 
@@ -50,3 +51,26 @@ class JIRAService:
             conditions.append("key in (" + ", ".join(keys) + ")")
 
         return self.jira.search_issues(" and ".join(conditions))
+
+    def execute_transition(
+        self,
+        issues: list[Issue],
+        transition: str,
+    ):
+        # Hacky, expects all issues to be from the same project to avoid collisions in transition naming.
+        transition_name_to_id = {}
+
+        # Check first if all issues support the desired transition before applying it.
+        for issue in issues:
+            available_transitions = []
+            for t in self.jira.transitions(issue):
+                available_transitions.append(t["name"])
+                transition_name_to_id[t["name"]] = t["id"]
+
+            if transition not in available_transitions:
+                msg_error(
+                    f"Issue '{issue.key}' does not support transition '{transition}'. Available transitions are: {available_transitions}"
+                )
+
+        for issue in issues:
+            self.jira.transition_issue(issue, transition_name_to_id[transition])
