@@ -6,6 +6,18 @@ Contains tools used by the GPN Einkauf Team to manage their workload.
 
 Located at `/src/kauf` is a command line utility with some neat commands to make shopping simpler.
 
+**Create a shopping list from JIRA issues**
+
+```bash
+kauf jira list --jira-url jira.example.com --tag "Buy Now" --hedgedoc-url "pad.example.com"
+```
+
+**Transition all JIRA issues from a shopping list where all items from that issue are ticked**
+
+```bash
+kauf jira update --hedgedoc-url "pad.example.com/XXXXX" --jira-url jira.example.com --transition "Mark arrived"
+```
+
 ### Installation
 
 Create a new virtual environment, e.g. with `virtualenv .venv` and activate it `source .venv/bin/activate`.
@@ -40,6 +52,14 @@ To avoid having to install the command line tool to test it locally you can run 
 
 ```bash
 python src/kauf
+```
+
+**Verbose mode**
+
+Use the `--verbose` flag for verbose output.
+
+```bash
+kauf --verbose ...
 ```
 
 **Linting**
