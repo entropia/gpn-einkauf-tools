@@ -6,10 +6,16 @@ Contains tools used by the GPN Einkauf Team to manage their workload.
 
 Located at `/src/kauf` is a command line utility with some neat commands to make shopping simpler.
 
-**Create a shopping list from JIRA issues**
+**Create a shopping list from JIRA issues by tag**
 
 ```bash
 kauf jira list --jira-url jira.example.com --tag "Buy Now" --hedgedoc-url "pad.example.com"
+```
+
+**Create a shopping list from JIRA issues by keys**
+
+```bash
+kauf jira list --jira-url jira.example.com --hedgedoc-url "pad.example.com" -k PROJ-111 -k PROJ-112 -k PROJ-113
 ```
 
 **Transition all JIRA issues from a shopping list where all items from that issue are ticked**
@@ -32,6 +38,20 @@ Then call it
 
 ```bash
 kauf --help
+```
+
+#### Secrets
+
+In case your JIRA needs authentication:
+
+```bash
+kauf secrets set jira_token xxx
+```
+
+Or the HedgeDoc requires to be logged in (use SID cookie from your browser):
+
+```bash
+kauf secrets set hedgedoc_sid xxx
 ```
 
 ### Development

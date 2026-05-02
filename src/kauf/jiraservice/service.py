@@ -43,7 +43,7 @@ class JIRAService:
         conditions = []
         if project:
             conditions.append("project = " + project)
-        if labels:
+        if labels and len(labels) > 0:
             conditions.append("labels in (" + ", ".join(labels) + ")")
         if status_exclude:
             conditions.append("status not in (" + ", ".join(status_exclude) + ")")
