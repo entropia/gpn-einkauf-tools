@@ -39,10 +39,11 @@ class ShoppingList:
 
                 # Try to find URL in item.
                 url = None
-                url_group = re.search("(?P<url>https?://[^\s]+)", item)
-                if url_group:
-                    url = url_group.group("url")
-                    item = item.replace(url, "")
+                url_groups = re.findall("(?P<url>https?://[^\s|\]\[]+)", item)
+                if url_groups:
+                    url = url_groups[-1]
+                    for group in url_groups:
+                        item = item.replace(group, "")
 
                 self.items.append(
                     ShoppingList.Item(
